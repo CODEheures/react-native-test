@@ -1,18 +1,20 @@
 import React from 'react'
 import {StyleSheet, View, Text, Image} from 'react-native'
+import TMDB from "../Helpers/TMDB"
 
 export default class Search extends React.Component {
   render() {
+    const film = this.props.film
     return (
       <View style={styles.view}>
-        <Image style={styles.image} />
+        <Image style={styles.image} source={{uri: TMDB.getImageFromAPI(film.poster_path)}} />
         <View style={styles.view_description}>
           <View style={styles.view_title}>
-            <Text style={styles.text_title}>Titre du film</Text>
-            <Text style={styles.text_vote}>Vote</Text>
+            <Text style={styles.text_title}>{film.title}</Text>
+            <Text style={styles.text_vote}>{film.vote_average}</Text>
           </View>
-          <Text style={styles.text_description} numberOfLines={6}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, exercitationem laborum perferendis quis ratione veniam voluptatum. Eius inventore, unde. Architecto consequuntur excepturi labore non quae quo soluta. Alias, iusto, velit?</Text>
-          <Text style={styles.text_date}>Sortie le 00/00/0000</Text>
+          <Text style={styles.text_description} numberOfLines={6}>{film.overview}</Text>
+          <Text style={styles.text_date}>Sortie le {film.release_date}</Text>
         </View>
       </View>
     );
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
   text_title: {
     flex: 2,
     flexWrap: 'wrap',
-    fontSize: 20,
+    fontSize: 14,
     fontWeight: '900'
   },
   text_vote: {
